@@ -1,8 +1,11 @@
 package com.rsr.email_microservice.port.user.consumer;
 
+import com.rsr.email_microservice.core.domain.model.User;
 import com.rsr.email_microservice.core.domain.service.interfaces.IEmailService;
+import com.rsr.email_microservice.core.domain.service.interfaces.IUserService;
 import com.rsr.email_microservice.port.user.dto.OrderDTO;
 import com.rsr.email_microservice.port.utils.EmailSendingException;
+import com.rsr.email_microservice.port.utils.UserAlreadyExistsException;
 import freemarker.template.TemplateException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
@@ -19,11 +22,16 @@ public class EmailOrderConsumer {
     @Autowired
     private IEmailService emailService;
 
+    @Autowired
+    private IUserService userService;
+
     @RabbitListener(queues = {"${rabbitmq.email.order.queue.name}"})
     public void consume(OrderDTO order) {
         try {
+            User user = new User(order.getUserId(), order.getFirstName(), order.getLastName(), order.getEmailAddress());
             String orderEmailContent = emailService.generateOrderEmail(order);
             emailService.sendEmail(order.getEmailAddress(), orderEmailContent, "Your Rock Solid Order was received");
+            userService.saveUser(user);
             log.info("Order recieved and Email sent to " + order.getEmailAddress());
         } catch (ListenerExecutionFailedException listenerExecutionFailedException) {
             log.error(listenerExecutionFailedException.getMessage());

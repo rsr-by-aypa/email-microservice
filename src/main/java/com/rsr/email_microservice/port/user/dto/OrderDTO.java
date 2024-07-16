@@ -13,6 +13,8 @@ public class OrderDTO {
 
     private UUID orderId;
 
+    private UUID userId;
+
     private String firstName;
 
     private String lastName;
@@ -24,7 +26,8 @@ public class OrderDTO {
     private List<ProductDTO> products;
 
     @JsonCreator
-    public OrderDTO(@JsonProperty("orderId") UUID orderId, @JsonProperty("firstName") String firstName,
+    public OrderDTO(@JsonProperty("orderId") UUID orderId, @JsonProperty("userId") UUID userId,
+                    @JsonProperty("firstName") String firstName,
                     @JsonProperty("lastName") String lastName,
                     @JsonProperty("orderCreationTime") LocalDateTime orderCreationTime,
                     @JsonProperty("emailAddress") String emailAddress,
@@ -35,6 +38,7 @@ public class OrderDTO {
         this.orderCreationTime = orderCreationTime;
         this.emailAddress = emailAddress;
         this.products = products;
+        this.userId = userId;
     }
 
 }
