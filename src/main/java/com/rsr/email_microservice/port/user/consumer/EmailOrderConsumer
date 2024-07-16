@@ -1,0 +1,40 @@
+package com.rsr.email_microservice.port.user.consumer;
+
+import com.rsr.email_microservice.core.domain.service.interfaces.IEmailService;
+import com.rsr.email_microservice.port.user.dto.OrderDTO;
+import com.rsr.email_microservice.port.utils.EmailSendingException;
+import freemarker.template.TemplateException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.amqp.rabbit.support.ListenerExecutionFailedException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.io.IOException;
+
+@Service
+public class EmailOrderConsumer {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(EmailOrderConsumer.class);
+
+    @Autowired
+    private IEmailService emailService;
+
+    @RabbitListener(queues = {"${rabbitmq.email.order.queue.name}"})
+    public void consume(OrderDTO order){
+        try {
+            String orderEmailContent = emailService.generateOrderEmail(order);
+            emailService.sendEmail(order.getEmailAddress(), orderEmailContent, "Your Rock Solid Order was received");
+        } catch (ListenerExecutionFailedException listenerExecutionFailedException) {
+            LOGGER.error(listenerExecutionFailedException.getMessage());
+        } catch (IOException e) {
+            LOGGER.error("Could not generate Order-Email");
+        } catch (TemplateException e) {
+            LOGGER.error("Could not generate Order-Email from specified Template");
+        } catch (EmailSendingException e) {
+            LOGGER.error("Could not send Email");
+        }
+    }
+
+}

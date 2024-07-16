@@ -1,7 +1,7 @@
 package com.rsr.email_microservice.port.admin.controller;
 
 
-import com.rsr.email_microservice.core.domain.service.EmailService;
+import com.rsr.email_microservice.core.domain.service.impl.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
