@@ -31,6 +31,7 @@ public class EmailPaymentConsumer {
             User user = userService.getUserById(payment.getUserId());
             String paymentEmailContent = emailService.generatePaymentEmail(payment, user);
             emailService.sendEmail(user.getEmailAddress(), paymentEmailContent, "Your Rock Solid Order has been paid!");
+            log.info("Payment recieved and Email sent to " + user.getEmailAddress());
         } catch (TemplateException e) {
             log.info("Payment-Email could not be generated from Template.");
         } catch (IOException e) {
