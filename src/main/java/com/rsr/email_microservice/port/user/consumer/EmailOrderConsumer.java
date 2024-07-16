@@ -4,6 +4,7 @@ import com.rsr.email_microservice.core.domain.service.interfaces.IEmailService;
 import com.rsr.email_microservice.port.user.dto.OrderDTO;
 import com.rsr.email_microservice.port.utils.EmailSendingException;
 import freemarker.template.TemplateException;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
@@ -13,10 +14,9 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 
+@Slf4j
 @Service
 public class EmailOrderConsumer {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(EmailOrderConsumer.class);
 
     @Autowired
     private IEmailService emailService;
@@ -26,14 +26,15 @@ public class EmailOrderConsumer {
         try {
             String orderEmailContent = emailService.generateOrderEmail(order);
             emailService.sendEmail(order.getEmailAddress(), orderEmailContent, "Your Rock Solid Order was received");
+            log.info("Order recieved and Email sent to " + order.getEmailAddress());
         } catch (ListenerExecutionFailedException listenerExecutionFailedException) {
-            LOGGER.error(listenerExecutionFailedException.getMessage());
+            log.error(listenerExecutionFailedException.getMessage());
         } catch (IOException e) {
-            LOGGER.error("Could not generate Order-Email");
+            log.error("Could not generate Order-Email");
         } catch (TemplateException e) {
-            LOGGER.error("Could not generate Order-Email from specified Template");
+            log.error("Could not generate Order-Email from specified Template");
         } catch (EmailSendingException e) {
-            LOGGER.error("Could not send Email");
+            log.error("Could not send Email");
         }
     }
 
