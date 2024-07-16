@@ -5,8 +5,6 @@ import com.rsr.email_microservice.port.user.dto.OrderDTO;
 import com.rsr.email_microservice.port.utils.EmailSendingException;
 import freemarker.template.TemplateException;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.amqp.rabbit.support.ListenerExecutionFailedException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +20,7 @@ public class EmailOrderConsumer {
     private IEmailService emailService;
 
     @RabbitListener(queues = {"${rabbitmq.email.order.queue.name}"})
-    public void consume(OrderDTO order){
+    public void consume(OrderDTO order) {
         try {
             String orderEmailContent = emailService.generateOrderEmail(order);
             emailService.sendEmail(order.getEmailAddress(), orderEmailContent, "Your Rock Solid Order was received");
