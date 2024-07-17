@@ -46,8 +46,8 @@ public class EmailService implements IEmailService {
         dataModel.put("name", order.getFirstName() + " " + order.getLastName());
         dataModel.put("orderNumber", order.getOrderId());
         dataModel.put("date", order.getOrderCreationTime());
-        dataModel.put("items", order.getProducts().stream()
-                .map(productDTO -> productDTO.getName() + " (" + productDTO.getPriceInEuro() + "€)  x" +
+        dataModel.put("items", order.getItems().stream()
+                .map(productDTO -> productDTO.getProductName() + " (" + productDTO.getPriceInEuro() + "€)  x" +
                         productDTO.getAmount()).toList());
 
         return emailTemplateGenerator.generateEmail("email-order-template.ftl", dataModel);

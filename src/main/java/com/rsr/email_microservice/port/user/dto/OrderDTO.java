@@ -23,7 +23,7 @@ public class OrderDTO {
 
     private String emailAddress;
 
-    private List<ProductDTO> products;
+    private List<ItemDTO> items;
 
     @JsonCreator
     public OrderDTO(@JsonProperty("orderId") UUID orderId, @JsonProperty("userId") UUID userId,
@@ -31,13 +31,13 @@ public class OrderDTO {
                     @JsonProperty("lastName") String lastName,
                     @JsonProperty("orderCreationTime") LocalDateTime orderCreationTime,
                     @JsonProperty("emailAddress") String emailAddress,
-                    @JsonProperty("products") List<ProductDTO> products) {
+                    @JsonProperty("items") List<ItemDTO> items) {
         this.orderId = orderId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.orderCreationTime = orderCreationTime;
         this.emailAddress = emailAddress;
-        this.products = products;
+        this.items = items;
         this.userId = userId;
     }
 

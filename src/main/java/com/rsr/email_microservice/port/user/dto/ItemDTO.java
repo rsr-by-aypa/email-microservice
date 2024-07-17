@@ -7,21 +7,21 @@ import lombok.Data;
 import java.util.UUID;
 
 @Data
-public class ProductDTO {
+public class ItemDTO {
 
     private UUID productId;
 
-    private String name;
+    private String productName;
 
     private int amount;
 
     private double priceInEuro;
 
     @JsonCreator
-    public ProductDTO(@JsonProperty("productId") UUID productId, @JsonProperty("name") String name,
-                      @JsonProperty("amount") int amount, @JsonProperty("priceInEuro") double priceInEuro) {
+    public ItemDTO(@JsonProperty("productId") UUID productId, @JsonProperty("productName") String productName,
+                   @JsonProperty("amount") int amount, @JsonProperty("priceInEuro") double priceInEuro) {
         this.productId = productId;
-        this.name = name;
+        this.productName = productName;
         this.amount = amount;
         this.priceInEuro = priceInEuro;
     }
