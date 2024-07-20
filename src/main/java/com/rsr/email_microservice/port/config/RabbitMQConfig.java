@@ -11,7 +11,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 
-
 @Configuration
 public class RabbitMQConfig {
 
@@ -31,15 +30,15 @@ public class RabbitMQConfig {
     private String paymentBindingKey;
 
 
-
-
     @Bean
     public Queue orderQueue() {
         return new Queue(orderQueue);
     }
 
     @Bean
-    public Queue paymentQueue() { return new Queue(paymentQueue); }
+    public Queue paymentQueue() {
+        return new Queue(paymentQueue);
+    }
 
 
     @Bean

@@ -4,7 +4,6 @@ import com.rsr.email_microservice.core.domain.model.User;
 import com.rsr.email_microservice.core.domain.service.interfaces.IUserRepository;
 import com.rsr.email_microservice.core.domain.service.interfaces.IUserService;
 import com.rsr.email_microservice.port.utils.UnknownUserIdException;
-import com.rsr.email_microservice.port.utils.UserAlreadyExistsException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
