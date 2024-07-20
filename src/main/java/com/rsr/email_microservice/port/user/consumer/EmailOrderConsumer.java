@@ -5,7 +5,6 @@ import com.rsr.email_microservice.core.domain.service.interfaces.IEmailService;
 import com.rsr.email_microservice.core.domain.service.interfaces.IUserService;
 import com.rsr.email_microservice.port.user.dto.OrderDTO;
 import com.rsr.email_microservice.port.utils.EmailSendingException;
-import com.rsr.email_microservice.port.utils.UserAlreadyExistsException;
 import freemarker.template.TemplateException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;

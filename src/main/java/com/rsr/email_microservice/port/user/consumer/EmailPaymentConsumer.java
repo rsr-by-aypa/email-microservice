@@ -4,7 +4,6 @@ package com.rsr.email_microservice.port.user.consumer;
 import com.rsr.email_microservice.core.domain.model.User;
 import com.rsr.email_microservice.core.domain.service.interfaces.IEmailService;
 import com.rsr.email_microservice.core.domain.service.interfaces.IUserService;
-import com.rsr.email_microservice.port.user.dto.OrderDTO;
 import com.rsr.email_microservice.port.user.dto.PaymentDTO;
 import com.rsr.email_microservice.port.utils.EmailSendingException;
 import freemarker.template.TemplateException;

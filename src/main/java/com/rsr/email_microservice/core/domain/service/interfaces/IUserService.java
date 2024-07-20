@@ -2,7 +2,6 @@ package com.rsr.email_microservice.core.domain.service.interfaces;
 
 import com.rsr.email_microservice.core.domain.model.User;
 import com.rsr.email_microservice.port.utils.UnknownUserIdException;
-import com.rsr.email_microservice.port.utils.UserAlreadyExistsException;
 
 import java.util.UUID;
 
